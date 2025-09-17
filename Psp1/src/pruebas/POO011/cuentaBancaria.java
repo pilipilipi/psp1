@@ -18,11 +18,27 @@ public class cuentaBancaria {
 		anadirTitular(titular);
 
 	}
+	
+	cuentaBancaria(double saldo, titular titular) {
+
+		this.saldo = saldo;
+		anadirTitular(titular);
+	}
+	
+	cuentaBancaria(String numCuenta, titular titular) {
+
+		this.numCuenta = numCuenta;
+		anadirTitular(titular);
+	}
+	
+	cuentaBancaria(titular titular) {
+
+		anadirTitular(titular);
+	}
 
 	public ArrayList<titular> anadirTitular(titular titular) {
 
 		if (titulares.size() < 3) {
-			System.out.println("Introduce usuario:");
 			titulares.add(titular);
 
 		} else {
