@@ -2,7 +2,7 @@ package procesosJava.procesos0101;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class ProcesoDivisores {
 	public static void main(String[] args) throws IOException {
