@@ -4,7 +4,7 @@ public class Divisores {
 	public static void main(String[] args){
 		int x, acc = 0;
 		
-		if(args.length > 0){
+		if(args.length > 0) {
 			x = Integer.parseInt(args[0]);
 			
 			for(int i = 1; i <= x; i++) {

@@ -2,10 +2,11 @@ package procesosJava.procesos0101;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Scanner;
 
 public class ProcesoDivisores {
 	public static void main(String[] args) throws IOException {
-
+		
 		Process ps = new ProcessBuilder("java", "procesosJava.procesos0101.Divisores", args[0]).start();
 
 		try {
