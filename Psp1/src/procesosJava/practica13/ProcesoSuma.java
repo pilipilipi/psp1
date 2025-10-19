@@ -6,7 +6,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+/**
+ * Clase ProcesoSuma
+ * <p>
+ * Este programa solicita dos números al usuario, crea un proceso
+ * para ejecutar la clase {@link Suma} y muestra el resultado
+ * recibido por el flujo de salida del proceso.
+ * </p>
+ * 
+ * @author [Tu Nombre]
+ * @version 1.0
+ */
+
 public class ProcesoSuma {
+	
+	/**
+     * Método principal que lanza el proceso de suma.
+     * 
+     * @param args Argumentos de linea de comandos (no usados).
+     * @throws IOException Si ocurre un error de entrada/salida al ejecutar el proceso.
+     */
 
 	public static void main(String[] args) throws IOException {
 		Scanner sc = new Scanner(System.in);

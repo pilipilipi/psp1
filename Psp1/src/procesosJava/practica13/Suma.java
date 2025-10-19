@@ -1,7 +1,22 @@
 package procesosJava.practica13;
+/**
+ * <p>
+ * Este programa recibe dos números por línea de comandos,
+ * verifica que sean válidos y muestra su suma por pantalla.
+ * </p>
+ * 
+ * @author Pilar
+ * @version 1.0
+ */
 
 public class Suma {
 
+	 /**
+     * Metodo principal que realiza la suma de dos números pasados como argumentos.
+     * 
+     * @param args Dos números enteros a sumar.
+     */
+	
 	public static void main(String[] args) {
 
 		int x, y;
