@@ -1,63 +1,55 @@
 package multiHilosObjetos.ejercicio01;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.List;
 
 public class HiloLector implements Runnable {
-	File f;
+	List<Integer> lista;
+	Object lock; 
 
-	public HiloLector(File f) {
-		this.f = f;
+	public HiloLector(List<Integer> lista, Object lock) { 
+		this.lista = lista;
+		this.lock = lock;
 	}
 
 	@Override
 	public void run() {
-		comprobarArchivo(f);
-	}
-
-	public synchronized void comprobarArchivo(File f) {
-//		int val = lista.get(0);
-//
-//		for (int num : lista) {
-//			if (val != num) {
-//				System.out.println("Valores incorrectos");
-//			} else {
-//				System.out.println("valores correctos");
-//			}
-//		}
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(f))){
-			String s = br.readLine(), linea;
-			
-			while ((linea = br.readLine()) != null) {
-				
-				if(!s.equals(linea)) {
-					System.out.println("Incorrecto");
-					break;
-				}
-			}
-			
-			System.out.println(s + "Correcto");
-			notify();
-			
+		synchronized (lock) {
 			try {
-				wait();
-			} catch (Exception e) {
-				e.printStackTrace();
+				lock.wait(); 
+				boolean correcto = true;
+
+				try {
+					
+					if (lista.isEmpty()) {
+						System.out.println("Archivo vacío.");
+						correcto = false;
+					}
+					
+					for(int n : lista) {
+						if(n != lista.get(1)) {
+							correcto = false;
+							System.out.println("Inorrecto");
+							break;
+						}
+					}
+
+					if (correcto) {
+						System.out.println("Correcto");
+					}
+					
+
+					lista.clear();
+					lock.notify(); 
+
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				} 
+				
+				
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
 			}
-			
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
-
 	}
-
 }

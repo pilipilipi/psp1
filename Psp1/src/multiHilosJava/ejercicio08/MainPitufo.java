@@ -18,5 +18,4 @@ public class MainPitufo {
 			t.start();
 		}
 	}
-
 }

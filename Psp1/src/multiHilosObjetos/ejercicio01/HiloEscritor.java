@@ -1,43 +1,36 @@
 package multiHilosObjetos.ejercicio01;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
 public class HiloEscritor implements Runnable {
-	File f;
-	private static int acc = 0;
-
-	public HiloEscritor(File f) {
-		this.f = f;
+	List<Integer> lista;
+	Object lock; 
+	private static int acc = 0; 
+	
+	public HiloEscritor(List<Integer> lista, Object lock) { 
+		this.lista = lista;
+		this.lock = lock;
 	}
 
 	@Override
 	public void run() {
-		escribirArchivo(f);
-	}
-
-	public synchronized void escribirArchivo(File f) {
-
-		try (PrintWriter pw = new PrintWriter(new FileWriter(f))) {
-			for (int i = 0; i < 10000; i++) {
-				pw.println(acc);
-			}
-
-			acc++;
-			notify();
-
+		synchronized (lock) { 
 			try {
-				wait();
+				
+				if (acc > 0) {
+					lock.wait();
+				}
+
+				for (int i = 0; i < 10000; i++) {
+					lista.add(acc);
+					//System.out.println(acc);
+				}
+				acc++; 
+				lock.notify(); 
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
 		}
-
 	}
-
 }
