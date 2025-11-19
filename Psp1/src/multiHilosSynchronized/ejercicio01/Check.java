@@ -1,4 +1,4 @@
-package multiHilosObjetos.ejercicio01;
+package multiHilosSynchronized.ejercicio01;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +13,9 @@ public class Check {
 		for(int i = 0; i < 10; i++) { 
 			Thread tEsc = new Thread(new HiloEscritor(lista, lock));
 			Thread tLect = new Thread(new HiloLector(lista, lock));
-			
-			tEsc.start();
+
 			tLect.start();
+			tEsc.start();
 		}
 	}
 }

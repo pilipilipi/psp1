@@ -1,4 +1,4 @@
-package multiHilosObjetos.ejercicio01;
+package multiHilosSynchronized.ejercicio01;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class HiloEscritor implements Runnable {
 		synchronized (lock) { 
 			try {
 				
-				if (acc > 0) {
+				while (!lista.isEmpty()) {	
 					lock.wait();
 				}
 
@@ -26,7 +26,7 @@ public class HiloEscritor implements Runnable {
 					//System.out.println(acc);
 				}
 				acc++; 
-				lock.notify(); 
+				lock.notifyAll();
 
 			} catch (Exception e) {
 				e.printStackTrace();

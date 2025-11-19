@@ -1,4 +1,4 @@
-package multiHilosObjetos.ejercicio01;
+package multiHilosSynchronized.ejercicio01;
 
 import java.util.List;
 
@@ -16,7 +16,9 @@ public class HiloLector implements Runnable {
 		
 		synchronized (lock) {
 			try {
-				lock.wait(); 
+				while (lista.isEmpty()) {
+					lock.wait();
+				}
 				boolean correcto = true;
 
 				try {
@@ -27,7 +29,7 @@ public class HiloLector implements Runnable {
 					}
 					
 					for(int n : lista) {
-						if(n != lista.get(1)) {
+						if(n != lista.get(0)) {
 							correcto = false;
 							System.out.println("Inorrecto");
 							break;
@@ -40,7 +42,7 @@ public class HiloLector implements Runnable {
 					
 
 					lista.clear();
-					lock.notify(); 
+					lock.notifyAll(); 
 
 				} catch (Exception e1) {
 					e1.printStackTrace();
