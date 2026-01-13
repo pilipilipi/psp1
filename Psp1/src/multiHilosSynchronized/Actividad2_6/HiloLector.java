@@ -23,7 +23,7 @@ public class HiloLector implements Runnable {
 				while (f.length() == 0) {
 					lock.wait();
 				}
-				
+
 				try {
 
 					if (f.length() == 0) {
