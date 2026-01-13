@@ -4,28 +4,28 @@ import java.util.List;
 
 public class HiloEscritor implements Runnable {
 	List<Integer> lista;
-	Object lock; 
-	private static int acc = 0; 
-	
-	public HiloEscritor(List<Integer> lista, Object lock) { 
+	Object lock;
+	private static int acc = 0;
+
+	public HiloEscritor(List<Integer> lista, Object lock) {
 		this.lista = lista;
 		this.lock = lock;
 	}
 
 	@Override
 	public void run() {
-		synchronized (lock) { 
+		synchronized (lock) {
 			try {
-				
-				while (!lista.isEmpty()) {	
+
+				while (!lista.isEmpty()) {
 					lock.wait();
 				}
 
 				for (int i = 0; i < 10000; i++) {
 					lista.add(acc);
-					//System.out.println(acc);
+					// System.out.println(acc);
 				}
-				acc++; 
+				acc++;
 				lock.notifyAll();
 
 			} catch (Exception e) {

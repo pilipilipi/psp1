@@ -8,9 +8,9 @@ public class Check {
 //		File f = new File("enterosIguales");
 //		// 1. Crear un objeto de bloqueo/monitor compartido
 		List<Integer> lista = new ArrayList<>();
-		Object lock = new Object(); 
-		
-		for(int i = 0; i < 10; i++) { 
+		Object lock = new Object();
+
+		for (int i = 0; i < 10; i++) {
 			Thread tEsc = new Thread(new HiloEscritor(lista, lock));
 			Thread tLect = new Thread(new HiloLector(lista, lock));
 
