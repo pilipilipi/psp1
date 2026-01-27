@@ -9,10 +9,6 @@ public class Compartido {
 
         File f = new File("Actividad2_6.txt");
 
-        if (!f.exists()) {
-            f.createNewFile();
-        }
-
         Object lock = new Object();
 
         Thread tEsc = new Thread(new HiloEscritor(f, lock));
