@@ -8,35 +8,32 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class HiloEscritor implements Runnable {
-	File f;
-	Object lock;
 
-	public HiloEscritor(File f, Object lock) {
-		this.f = f;
-		this.lock = lock;
-	}
+    File f;
+    Object lock;
 
-	@Override
-	public void run() {
-		synchronized (lock) {
-			try {
-				try (PrintWriter pw = new PrintWriter(new FileWriter(f), true)) {
-					pw.println(fechaHoraActual());
+    public HiloEscritor(File f, Object lock) {
+        this.f = f;
+        this.lock = lock;
+    }
 
-				} catch (IOException e) {
-					System.out.println("Error al leer el archivo: " + e.getMessage());
-				}
+    @Override
+    public void run() {
+        synchronized (lock) {
+            try (PrintWriter pw = new PrintWriter(new FileWriter(f, true))) {
+                
+                pw.println(fechaHoraActual());
 
-				lock.notifyAll();
+                lock.notifyAll();
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+            } catch (IOException e) {
+                System.out.println("Error al escribir el archivo: " + e.getMessage());
+            }
+        }
+    }
 
-	public static String fechaHoraActual() {
-		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS");
-		return LocalDateTime.now().format(formato);
-	}
+    public static String fechaHoraActual() {
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS");
+        return LocalDateTime.now().format(formato);
+    }
 }

@@ -6,49 +6,39 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class HiloLector implements Runnable {
-	File f;
-	Object lock;
-	String linea = "";
 
-	public HiloLector(File f, Object lock) {
-		this.f = f;
-		this.lock = lock;
-	}
+    File f;
+    Object lock;
 
-	@Override
-	public void run() {
+    public HiloLector(File f, Object lock) {
+        this.f = f;
+        this.lock = lock;
+    }
 
-		synchronized (lock) {
-			try {
-				while (f.length() == 0) {
-					lock.wait();
-				}
+    @Override
+    public void run() {
 
-				try {
+        synchronized (lock) {
+            try {
+                while (f.length() == 0) {
+                    lock.wait();
+                }
 
-					if (f.length() == 0) {
-						System.out.println("Archivo vacío.");
-					}
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+        }
 
-					try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-						while ((linea = br.readLine()) != null) {
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String linea;
 
-							System.out.println(linea);
-						}
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea);
+            }
 
-					} catch (IOException e) {
-						System.out.println("Error al leer el archivo: " + e.getMessage());
-					}
-
-					lock.notifyAll();
-
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-			}
-		}
-	}
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        }
+    }
 }

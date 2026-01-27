@@ -1,20 +1,24 @@
 package multiHilosSynchronized.Actividad2_6;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Compartido {
 
-	public static void main(String[] args) {
-		File f = new File("Actividad2_6.txt");
-		Object lock = new Object();
+    public static void main(String[] args) throws IOException {
 
-		for (int i = 0; i < 10; i++) {
-			Thread tEsc = new Thread(new HiloEscritor(f, lock));
-			Thread tLect = new Thread(new HiloLector(f, lock));
+        File f = new File("Actividad2_6.txt");
 
-			tLect.start();
-			tEsc.start();
-		}
-	}
+        if (!f.exists()) {
+            f.createNewFile();
+        }
 
+        Object lock = new Object();
+
+        Thread tEsc = new Thread(new HiloEscritor(f, lock));
+        Thread tLect = new Thread(new HiloLector(f, lock));
+
+        tLect.start();
+        tEsc.start();
+    }
 }
