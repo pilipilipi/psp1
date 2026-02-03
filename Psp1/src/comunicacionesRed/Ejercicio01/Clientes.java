@@ -3,7 +3,6 @@ package comunicacionesRed.Ejercicio01;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
 public class Clientes {
 

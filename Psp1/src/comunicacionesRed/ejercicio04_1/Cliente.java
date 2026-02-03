@@ -1,4 +1,4 @@
-package comunicacionesRed.ejercicio05;
+package comunicacionesRed.ejercicio04_1;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
